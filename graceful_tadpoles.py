@@ -356,6 +356,39 @@ def fig4(m, n):
     return vertices, edges
 
 
+def fig5(m, n):
+    assert(m % 4 == 1)
+    assert(n % 2 == 0)
+
+    k = n // 2
+    l = (n-1) // 4
+
+    assert (k > l)
+    assert (k != 1)
+
+    vertices = [2*l + k + 1]
+    decrease = False
+    offset = 0
+    for w in range(1, 4*l+2*k+1, 1):
+        current = vertices[-1]
+        # skip edge length 2l on the path
+        if w == 2*l:
+            offset = 1
+        if decrease:
+            vertices.append(current - (w + offset))
+            decrease = False
+        else:
+            vertices.append(current + w + offset)
+            decrease = True
+
+    # construct a long path
+    edges = [(u,v) for u,v in zip(vertices, vertices[1:])]
+    # add the edge connecting 0 with 2l that closes the head cycle
+    edges.append((vertices[-1], vertices[n]))
+
+    return vertices, edges
+
+
 def thm2(m, n):
     assert(m % 4 == 1)
     assert(n > 0)
@@ -365,6 +398,8 @@ def thm2(m, n):
     if n % 2 == 0:
         if n == 2:
             return fig4(m, n)
+        elif n//2 >= (m-2)//4:
+            return fig5(m, n)
         else:
             return [0,1], [(0,1)]
 
