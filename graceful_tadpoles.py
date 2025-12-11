@@ -316,6 +316,46 @@ def fig3(m, n):
 
     return vertices, edges
 
+
+def fig4(m, n):
+    assert(m % 4 == 1)
+    assert(n == 2)
+
+    l = (m - 1) // 4
+
+    vertices = [l+2, l+1]
+
+    decrease = False
+    for w in range(2*l+1, 4*l+4, 1):
+        current = vertices[-1]
+        if decrease:
+            vertices.append(current - w)
+            decrease = False
+        else:
+            vertices.append(current + w)
+            decrease = True
+
+    if 2*l+3 != 3*l+2:
+        vertices.append(2*l+3)
+
+    decrease = True
+    for w in range(2, 2*l-1, 1):
+        current = vertices[-1]
+        if decrease:
+            vertices.append(current - w)
+            decrease = False
+        else:
+            vertices.append(current + w)
+            decrease = True
+
+    # construct a long path
+    edges = [(u,v) for u,v in zip(vertices, vertices[1:])]
+    # add the edge connecting 3l+2 with l+3 that closes the head cycle
+    edges.append((vertices[-1], vertices[2]))
+
+    return vertices, edges
+
+
 def thm2(m, n):
     assert(m % 4 == 1)
     assert(n > 0)
@@ -323,7 +363,10 @@ def thm2(m, n):
     if n % 2 == 1:
         return fig3(m, n)
     if n % 2 == 0:
-        return [0,1], [(0,1)]
+        if n == 2:
+            return fig4(m, n)
+        else:
+            return [0,1], [(0,1)]
 
 
 def is_graceful(vertices, edges):
@@ -359,7 +402,7 @@ def edge_labels(edges):
 def draw_graph(e):
     import networkx as nx
     import matplotlib.pyplot as plt
-    
+
     g = nx.from_edgelist(e)
     pos1 = nx.circular_layout(g)
     nx.draw(g, pos1, with_labels=True, node_color='skyblue')
