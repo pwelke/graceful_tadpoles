@@ -461,8 +461,9 @@ def thm2(m, n):
 def graceful_tadpole(m, n):
     '''
     Implements all the constructions presented in the paper
-    Guo Wenfu. The Gracefulness of Graph 𝐵(𝑚, 𝑛). 
-    Journal of Inner Mongolia Normal University (Natural Science Edition), 1994(2): 25-29.
+    Guo Wenfu. The Gracefulness of Graph B(m,n). 
+    Journal of Inner Mongolia Normal University (Natural Science Edition), 
+    1994(2): 25-29.
     '''
     assert(m >= 3)
     assert(m % 4 == 2 or m % 4 == 1)
@@ -492,7 +493,9 @@ def is_graceful(vertices, edges, verbose=False):
     injective_edge_labels = len(labels) == len(edges)
 
     if verbose:
-        print(f'Proper vertex range? {proper_range}\nInjective vertex labels? {injective_vertex_labels}\nInjective edge labels? {injective_edge_labels}')
+        print(f'Proper vertex range? {proper_range}')
+        print(f'Injective vertex labels? {injective_vertex_labels}')
+        print(f'Injective edge labels? {injective_edge_labels}')
     return proper_range and injective_vertex_labels and injective_edge_labels
 
 
@@ -516,19 +519,19 @@ def draw_graph(e):
     nx.draw_networkx_edge_labels(g, pos1, edge_labels=edge_labels(e))
     plt.show()
 
+if __name__ == '__main__':
+    for m in range(3, 1000):
+        for n in range(1, 1000):
+            if (m - 1) % 4 > 1:
+                continue # these cases are not described in the paper
 
-for m in range(3, 1000):
-    for n in range(1, 1000):
-        if (m - 1) % 4 > 1:
-            continue # these cases are not described in the paper
-
-        v,e = graceful_tadpole(m, n)
-    
-        if not is_graceful(v,e):
-            print(f'Uncaught case: k={n//2} l={m//4}, n={n} m={m}')
-            is_graceful(v,e, verbose=True)
-            print(f'V = {v}')
-            print(f'E = {edge_labels(e)}')
-            print(f'nnodes = {len(v)} (should be {m+n})')
-            print(f'nedges = {len(e)} (should be {m+n})')
-            draw_graph(e)
+            v,e = graceful_tadpole(m, n)
+        
+            if not is_graceful(v,e):
+                print(f'Uncaught case: k={n//2} l={m//4}, n={n} m={m}')
+                is_graceful(v,e, verbose=True)
+                print(f'V = {v}')
+                print(f'E = {edge_labels(e)}')
+                print(f'nnodes = {len(v)} (should be {m+n})')
+                print(f'nedges = {len(e)} (should be {m+n})')
+                draw_graph(e)
