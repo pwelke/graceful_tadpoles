@@ -85,7 +85,7 @@ The set of edge labels for a graceful graph is
 \additionalcomment{The entrypoint to the python code is the following function that constructs a graceful labeling for any tadpole with \(m \equiv 1\) or \(2 \pmod 4\).}
 
 \vspace{0.5\baselineskip}
-\pyfunction{../code/graceful_tadpoles.py}{graceful_tadpole}
+\pyfunction{../graceful_tadpoles.py}{graceful_tadpole}
 
 \section{\texorpdfstring{Case
 \(m \equiv 2 \pmod 4\)}{Case m \textbackslash equiv 2 \textbackslash pmod 4}}\label{theorem-1-case-m-equiv-2-pmod-4}
@@ -104,7 +104,7 @@ For the case \(n \ge 3\) we will construct graceful labelings in Section~\ref{se
 \end{proof} 
 
 \vspace{0.5\baselineskip}
-\pyfunction{../code/graceful_tadpoles.py}{thm1}
+\pyfunction{../graceful_tadpoles.py}{thm1}
 
 \subsection{Case 1: \(n = 1\)}
 \label{sec:fig1}
@@ -119,7 +119,7 @@ For the case \(n \ge 3\) we will construct graceful labelings in Section~\ref{se
 
 
 \vspace{0.5\baselineskip}
-\pyfunction{../code/graceful_tadpoles.py}{fig1}
+\pyfunction{../graceful_tadpoles.py}{fig1}
 
 
 
@@ -134,7 +134,7 @@ For the case \(n \ge 3\) we will construct graceful labelings in Section~\ref{se
 \end{center}
 \end{minipage}
 
-\pyfunction{../code/graceful_tadpoles.py}{fig2}
+\pyfunction{../graceful_tadpoles.py}{fig2}
 
 \subsection{Case 3: \(n \ge 3\)}\label{sec:restofthm1}
 For the case \(n \ge 3\) we will construct graceful labelings as follows: 
@@ -200,7 +200,7 @@ Considering the case on $C_m \cup P_n$ as a whole, it is easy to see that the la
 The proof for the other cases below is similar; we only present the key steps and omit the rest.
 
 \vspace{0.5\baselineskip}
-\pyfunction{../code/graceful_tadpoles.py}{case_3_1}
+\pyfunction{../graceful_tadpoles.py}{case_3_1}
 
 \item[Case (3-2)]
  When $n=6s+4$, the labels for $B_{1}$ to $B_{6s+1}$ still use formula (\ref{eq:case31}). 
@@ -219,7 +219,7 @@ L(B_{6s+1}B_{6s+2}) = 3, \quad L(B_{6s+2}B_{6s+3}) = 1, \quad L(B_{6s+3}B_{6s+4}
 Therefore, the set of edge labels for the path $B_{1}B_{2}\ldots B_{n}$ is $\{1, 2, \ldots, n-1\}$.
 
 \vspace{0.5\baselineskip}
-\pyfunction{../code/graceful_tadpoles.py}{case_3_2}
+\pyfunction{../graceful_tadpoles.py}{case_3_2}
 
 \item[Case (3-3)] 
 When $n=6s+5$, the labels for $B_{1}$ to $B_{6s+1}$ still use formula (\ref{eq:case31}). Additionally, we set:
@@ -243,7 +243,7 @@ L(B_{6s+4}B_{6s+5}) &= 3 \\
 the set of edge labels for the path $B_{1}B_{2}\ldots B_{n}$ is $\{1, 2, \ldots, n-1\}$.
 
 \vspace{0.5\baselineskip}
-\pyfunction{../code/graceful_tadpoles.py}{case_3_3}
+\pyfunction{../graceful_tadpoles.py}{case_3_3}
 
 \item[Case (3-4)]
 When $n = 6s + 6$, the labels for $B_{1}$ to $B_{6s+1}$ still use formula (1). Additionally, set:
@@ -269,7 +269,7 @@ L(B_{6s+5}B_{6s+6}) &= 1 \\
 Therefore, the set of edge labels for the path $B_{1}B_{2}\ldots B_{n}$ is $\{1, 2, \ldots, n-1\}$.
 
 \vspace{0.5\baselineskip}
-\pyfunction{../code/graceful_tadpoles.py}{case_3_4}
+\pyfunction{../graceful_tadpoles.py}{case_3_4}
 
 \item[Case (3-5)] 
 When $n = 6s + 7$, the labels for $B_{1}$ to $B_{6s+1}$ still use formula (1). Additionally, set:
@@ -299,7 +299,7 @@ L(B_{6s+6}B_{6s+7}) &= 2 \\
 the set of edge labels for the path $B_{1}B_{2}\ldots B_{n}$ is $\{1, 2, \ldots, n-1\}$.
 
 \vspace{0.5\baselineskip}
-\pyfunction{../code/graceful_tadpoles.py}{case_3_5}
+\pyfunction{../graceful_tadpoles.py}{case_3_5}
 
 \item[Case (3-6)] When $n = 6s + 8$, the labels for $B_{1}$ to $B_{6s+1}$ still use formula (\ref{eq:case31}). Additionally, set:
 \[
@@ -328,7 +328,7 @@ L(B_{6s+7}B_{6s+8}) &= 3 \\
 Therefore, the set of edge labels for the path $B_{1}B_{2}\cdots B_{n}$ is $\{1, 2, \cdots, n-1\}$.
 
 \vspace{0.5\baselineskip}
-\pyfunction{../code/graceful_tadpoles.py}{case_3_1}
+\pyfunction{../graceful_tadpoles.py}{case_3_1}
 
 \end{description}
 
@@ -353,7 +353,7 @@ If $n$ is even, we distinguish three cases in Section~\ref{sec3:even}.
 \end{proof}
 
 \vspace{0.5\baselineskip}
-\pyfunction{../code/graceful_tadpoles.py}{thm2}
+\pyfunction{../graceful_tadpoles.py}{thm2}
 
 \subsection{Case \(n\) is odd} % \(n \in N_{1}\) 
 \label{sec3:odd}
@@ -412,7 +412,7 @@ If $n$ is even, we distinguish three cases in Section~\ref{sec3:even}.
 % \item
 
 \vspace{0.5\baselineskip}
-\pyfunction{../code/graceful_tadpoles.py}{fig3}
+\pyfunction{../graceful_tadpoles.py}{fig3}
 
 
 \subsection{Case \(n\) is even} % \(n \in N_{2}\) 
@@ -436,7 +436,7 @@ If $n$ is even, we distinguish three cases in Section~\ref{sec3:even}.
   \end{minipage}
 
   \vspace{0.5\baselineskip}
-  \pyfunction{../code/graceful_tadpoles.py}{fig4}
+  \pyfunction{../graceful_tadpoles.py}{fig4}
 
   \item[Case (2-2)] 
   If \(k \ge l\) (\(k \ne 1\)), graceful labeling is given in Figure 5.
@@ -452,7 +452,7 @@ If $n$ is even, we distinguish three cases in Section~\ref{sec3:even}.
   \end{minipage}
 
   \vspace{0.5\baselineskip}
-  \pyfunction{../code/graceful_tadpoles.py}{fig5}
+  \pyfunction{../graceful_tadpoles.py}{fig5}
 
 
   \item[Case (2-3)] 
@@ -486,7 +486,7 @@ If $n$ is even, we distinguish three cases in Section~\ref{sec3:even}.
       remaining path.
     \end{itemize}
     \vspace{0.5\baselineskip}
-    \pyfunction{../code/graceful_tadpoles.py}{fig6} 
+    \pyfunction{../graceful_tadpoles.py}{fig6} 
     
   \end{description}
 % \end{enumerate}
@@ -540,7 +540,12 @@ If $n$ is even, we distinguish three cases in Section~\ref{sec3:even}.
 \additionalcomment{To check if a constructed graph labeling is indeed graceful, i have written a test function. The python file contains a loop to check if the constructed labelings for tadpoles with $m \in \{3, \ldots, 1000\}$ and $n \in \{1, \ldots, 1000\}$ are indeed graceful. They are. :)} 
 
 \vspace{0.5\baselineskip}
-\pyfunction{../code/graceful_tadpoles.py}{is_graceful}
+\pyfunction{../graceful_tadpoles.py}{is_graceful}
+
+\additionalcomment{If you want to draw one of these tadpoles, there is the following function that may be of some use:}
+
+\vspace{0.5\baselineskip}
+\pyfunction{../graceful_tadpoles.py}{draw_graph}
 
 \section{Original Paper}
 \label{apxoriginal}
