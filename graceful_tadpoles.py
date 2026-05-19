@@ -197,7 +197,6 @@ def case_3_4(m, n, fig):
     tail_vertices.append(2*l+4+3*s)
     tail_vertices.append(2*l+3+3*s)
 
-
     # construct tail edges
     tail_edges = [(u,v) for u,v in zip(tail_vertices, tail_vertices[1:])]
 
@@ -302,9 +301,6 @@ def fig3(m, n):
     assert(n % 2 == 1)
 
     l = m // 4
-    k = (n - 1) // 2
-
-    # assert (k > l - 2)
 
     vertices = [0]
     decrease = False
@@ -382,7 +378,7 @@ def fig5(m, n):
     offset = 0
     for w in range(1, 4*l+2*k+1, 1):
         current = vertices[-1]
-        # skip edge length 2l on the path
+        # skip edge length 2l
         if w == 2*l:
             offset = 1
         if decrease:
@@ -399,6 +395,7 @@ def fig5(m, n):
 
     return vertices, edges
 
+
 def fig6(m, n):
     assert(m % 4 == 1)
     assert(n % 2 == 0)
@@ -412,10 +409,9 @@ def fig6(m, n):
     vertices = [2*l+1, 0]
     decrease = False
     offset = 0
-    # for w in range(4*l+2*k+1, 2*l+1, -1):
     for w in range(4*l+2*k+1, 2*k+2, -1):
         current = vertices[-1]
-        # # skip edge length 2*l on the path
+        # # skip edge length 2*l+1
         if w == 2*l+1:
             offset = -1
         if decrease:
@@ -425,12 +421,7 @@ def fig6(m, n):
             vertices.append(current + w + offset)
             decrease = True
 
-    # vertices.append(3*l+k)
-    # vertices.append(2*l-2)
-    # vertices.append(3*l+2*k+2)
-    # vertices.append(2*l-1)
-    # vertices.append(2*l+2*k+1)
-
+    # add cycle edges
     edges = list(zip(vertices, vertices[1:] + [vertices[0]]))
     
     # add tail
@@ -467,9 +458,26 @@ def thm2(m, n):
             # return fig6(m, n)
 
 
+def graceful_tadpole(m, n):
+    '''
+    Implements all the constructions presented in the paper
+    Guo Wenfu. The Gracefulness of Graph 𝐵(𝑚, 𝑛). 
+    Journal of Inner Mongolia Normal University (Natural Science Edition), 1994(2): 25-29.
+    '''
+    assert(m >= 3)
+    assert(m % 4 == 2 or m % 4 == 1)
+    
+    if m % 4 == 2:
+        return thm1(m, n)
+    if m % 4 == 1:
+        return thm2(m, n)
+
+
 def is_graceful(vertices, edges, verbose=False):
-    '''see if edge labels are unique. 
-    this should suffice if node labels are injective'''
+    '''
+    Check if a graph, given by a list of vertex labels
+    and a list of edges is graceful.
+    '''
 
     # vertex labels in range 0...m (inclusive)?
     proper_range = min(vertices) >= 0 and max(vertices) <= len(edges)
@@ -509,16 +517,12 @@ def draw_graph(e):
     plt.show()
 
 
-for m in range(3, 100):
-    for n in range(1, 100):
-        # m = 4*l + 1
+for m in range(3, 1000):
+    for n in range(1, 1000):
+        if (m - 1) % 4 > 1:
+            continue # these cases are not described in the paper
 
-        if m % 4 == 2:
-            v, e = thm1(m, n)
-        elif m % 4 == 1:
-            v, e = thm2(m, n)
-        else:
-            continue # not one of the two cases the paper adresses
+        v,e = graceful_tadpole(m, n)
     
         if not is_graceful(v,e):
             print(f'Uncaught case: k={n//2} l={m//4}, n={n} m={m}')
@@ -528,19 +532,3 @@ for m in range(3, 100):
             print(f'nnodes = {len(v)} (should be {m+n})')
             print(f'nedges = {len(e)} (should be {m+n})')
             draw_graph(e)
-
-
-# m = 13
-# n = 4
-
-# if m % 4 == 2:
-#     v, e = thm1(m, n)
-# elif m % 4 == 1:
-#     v, e = thm2(m, n)
-
-# if not is_graceful(v,e):
-#     print(f'V = {v}')
-#     print(f'V = {sorted(v)}')
-#     print(f'E = {edge_labels(e)}')
-#     print(f'nnodes = {len(v)} (should be {m+n})')
-#     print(f'nedges = {len(e)} (should be {m+n})')
