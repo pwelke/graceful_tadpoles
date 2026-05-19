@@ -5,7 +5,7 @@ def fig1(m, n):
     # added in another step
     assert(n == 1 or n >= 3) 
 
-    l = (m - 2) // 4 
+    l = m // 4
 
     vertices = list()
 
@@ -36,7 +36,7 @@ def fig2(m, n):
     assert(m % 4 == 2)
     assert(n == 2)
 
-    l = (m - 2) // 4 
+    l = m // 4
     vertices = list()
 
     # point A1 will be at index 0, followed by m-1 cycle nodes, counterclockwise. 
@@ -84,12 +84,13 @@ def fig2(m, n):
 
     return vertices, edges
 
-def case_3_1(m, n):
+def case_3_1(m, n, fig):
     assert(n % 6 == 3)
 
-    head_vertices, head_edges = fig1(m, n)
+    head_vertices, head_edges = fig(m, n)
 
     tail_vertices = list() 
+    l = m // 4
     s = (n - 3) // 6
     a = n+2*l+1
     b = 2*l
@@ -112,12 +113,13 @@ def case_3_1(m, n):
     return head_vertices + tail_vertices[1:], head_edges + tail_edges
 
 
-def case_3_2(m, n):
+def case_3_2(m, n, fig):
     assert(n % 6 == 4)
 
-    head_vertices, head_edges = fig1(m, n)
+    head_vertices, head_edges = fig(m, n)
 
     tail_vertices = list() 
+    l = m // 4
     s = (n - 3) // 6
     a = n+2*l+1
     b = 2*l
@@ -141,12 +143,13 @@ def case_3_2(m, n):
     return head_vertices + tail_vertices[1:], head_edges + tail_edges
 
 
-def case_3_3(m, n):
+def case_3_3(m, n, fig):
     assert(n % 6 == 5)
 
-    head_vertices, head_edges = fig1(m, n)
+    head_vertices, head_edges = fig(m, n)
 
     tail_vertices = list() 
+    l = m // 4
     s = (n - 3) // 6
     a = n+2*l+1
     b = 2*l
@@ -170,12 +173,13 @@ def case_3_3(m, n):
     # as it is already part of the output of fig1
     return head_vertices + tail_vertices[1:], head_edges + tail_edges
 
-def case_3_4(m, n):
+def case_3_4(m, n, fig):
     assert(n % 6 == 0)
 
-    head_vertices, head_edges = fig1(m, n)
+    head_vertices, head_edges = fig(m, n)
 
     tail_vertices = list() 
+    l = m // 4
     s = (n - 3) // 6
     a = n+2*l+1
     b = 2*l
@@ -202,12 +206,13 @@ def case_3_4(m, n):
     return head_vertices + tail_vertices[1:], head_edges + tail_edges
 
 
-def case_3_5(m, n):
+def case_3_5(m, n, fig):
     assert(n % 6 == 1)
 
-    head_vertices, head_edges = fig1(m, n)
+    head_vertices, head_edges = fig(m, n)
 
     tail_vertices = list() 
+    l = m // 4
     s = (n - 3) // 6
     a = n+2*l+1
     b = 2*l
@@ -234,12 +239,13 @@ def case_3_5(m, n):
     return head_vertices + tail_vertices[1:], head_edges + tail_edges
 
 
-def case_3_6(m, n):
+def case_3_6(m, n, fig):
     assert(n % 6 == 2)
 
-    head_vertices, head_edges = fig1(m, n)
+    head_vertices, head_edges = fig(m, n)
 
     tail_vertices = list() 
+    l = m // 4
     s = (n - 3) // 6
     a = n+2*l+1
     b = 2*l
@@ -268,6 +274,7 @@ def case_3_6(m, n):
 
 
 def thm1(m, n):
+    assert(m >= 3)
     assert(m % 4 == 2)
     assert(n > 0)
 
@@ -277,24 +284,24 @@ def thm1(m, n):
         return fig2(m, n)
     else:
         if n % 6 == 3:
-            return case_3_1(m, n)
+            return case_3_1(m, n, fig1)
         if n % 6 == 4:
-            return case_3_2(m, n)
+            return case_3_2(m, n, fig1)
         if n % 6 == 5:
-            return case_3_3(m, n)
+            return case_3_3(m, n, fig1)
         if n % 6 == 0:
-            return case_3_4(m, n)
+            return case_3_4(m, n, fig1)
         if n % 6 == 1:
-            return case_3_5(m, n)
+            return case_3_5(m, n, fig1)
         if n % 6 == 2:
-            return case_3_6(m, n)
+            return case_3_6(m, n, fig1)
 
 
 def fig3(m, n):
     assert(m % 4 == 1)
     assert(n % 2 == 1)
 
-    l = (m - 1) // 4
+    l = m // 4
     k = (n - 1) // 2
 
     # assert (k > l - 2)
@@ -325,7 +332,7 @@ def fig4(m, n):
     assert(m % 4 == 1)
     assert(n == 2)
 
-    l = (m - 1) // 4
+    l = m // 4
 
     vertices = [l+2, l+1]
 
@@ -365,9 +372,9 @@ def fig5(m, n):
     assert(n % 2 == 0)
 
     k = n // 2
-    l = (n-1) // 4
+    l = m // 4
 
-    assert (k > l)
+    assert (k >= l)
     assert (k != 1)
 
     vertices = [2*l + k + 1]
@@ -393,25 +400,74 @@ def fig5(m, n):
     return vertices, edges
 
 def fig6(m, n):
-    pass
+    assert(m % 4 == 1)
+    assert(n % 2 == 0)
+
+    k = n // 2
+    l = m // 4
+
+    assert (k < l)
+    assert (k > 1)
+
+    vertices = [2*l+1, 0]
+    decrease = False
+    offset = 0
+    # for w in range(4*l+2*k+1, 2*l+1, -1):
+    for w in range(4*l+2*k+1, 2*k+2, -1):
+        current = vertices[-1]
+        # # skip edge length 2*l on the path
+        if w == 2*l+1:
+            offset = -1
+        if decrease:
+            vertices.append(current - (w + offset))
+            decrease = False
+        else:
+            vertices.append(current + w + offset)
+            decrease = True
+
+    # vertices.append(3*l+k)
+    # vertices.append(2*l-2)
+    # vertices.append(3*l+2*k+2)
+    # vertices.append(2*l-1)
+    # vertices.append(2*l+2*k+1)
+
+    edges = list(zip(vertices, vertices[1:] + [vertices[0]]))
+    
+    # add tail
+    vertices.append(2*l)
+    edges.append((vertices[-1], vertices[-2]))
+
+    return vertices, edges
 
 
 def thm2(m, n):
+    assert(m >= 3)
     assert(m % 4 == 1)
     assert(n > 0)
+
+    k = n // 2
+    l = m // 4
 
     if n % 2 == 1:
         return fig3(m, n)
     if n % 2 == 0:
-        if n == 2:
+        if k == 1:
             return fig4(m, n)
-        elif n//2 >= (m-2)//4:
+        elif k >= l:
             return fig5(m, n)
+        elif k < l:
+            if n % 6 == 4:
+                return case_3_2(m, n, fig6)
+            if n % 6 == 0:
+                return case_3_4(m, n, fig6)
+            if n % 6 == 2:
+                return case_3_6(m, n, fig6)
         else:
-            return fig6(m, n)
+            raise ValueError(f'Uncaught case: k={k} l={l}, n={n} m={m}')
+            # return fig6(m, n)
 
 
-def is_graceful(vertices, edges):
+def is_graceful(vertices, edges, verbose=False):
     '''see if edge labels are unique. 
     this should suffice if node labels are injective'''
 
@@ -427,7 +483,8 @@ def is_graceful(vertices, edges):
         labels.add(abs(e[0] - e[1]))
     injective_edge_labels = len(labels) == len(edges)
 
-    print(f'Proper vertex range? {proper_range}\nInjective vertex labels? {injective_vertex_labels}\nInjective edge labels? {injective_edge_labels}')
+    if verbose:
+        print(f'Proper vertex range? {proper_range}\nInjective vertex labels? {injective_vertex_labels}\nInjective edge labels? {injective_edge_labels}')
     return proper_range and injective_vertex_labels and injective_edge_labels
 
 
@@ -452,14 +509,38 @@ def draw_graph(e):
     plt.show()
 
 
-for l in range(1, 20):
-    for n in range(1, 20):
-        m = 4*l + 1
-        v, e = thm2(m, n)
+for m in range(3, 100):
+    for n in range(1, 100):
+        # m = 4*l + 1
+
+        if m % 4 == 2:
+            v, e = thm1(m, n)
+        elif m % 4 == 1:
+            v, e = thm2(m, n)
+        else:
+            continue # not one of the two cases the paper adresses
     
-        print(f'V = {v}')
-        print(f'E = {e}')
         if not is_graceful(v,e):
+            print(f'Uncaught case: k={n//2} l={m//4}, n={n} m={m}')
+            is_graceful(v,e, verbose=True)
+            print(f'V = {v}')
+            print(f'E = {edge_labels(e)}')
             print(f'nnodes = {len(v)} (should be {m+n})')
             print(f'nedges = {len(e)} (should be {m+n})')
             draw_graph(e)
+
+
+# m = 13
+# n = 4
+
+# if m % 4 == 2:
+#     v, e = thm1(m, n)
+# elif m % 4 == 1:
+#     v, e = thm2(m, n)
+
+# if not is_graceful(v,e):
+#     print(f'V = {v}')
+#     print(f'V = {sorted(v)}')
+#     print(f'E = {edge_labels(e)}')
+#     print(f'nnodes = {len(v)} (should be {m+n})')
+#     print(f'nedges = {len(e)} (should be {m+n})')
