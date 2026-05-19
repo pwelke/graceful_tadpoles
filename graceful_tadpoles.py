@@ -1,7 +1,9 @@
 
 def fig1(m, n):
     assert(m % 4 == 2)
-    assert(n == 1 or n >= 3) # careful. n >= 3 requires additional tail nodes added in another step
+    # careful. n >= 3 requires additional tail nodes 
+    # added in another step
+    assert(n == 1 or n >= 3) 
 
     l = (m - 2) // 4 
 
@@ -40,7 +42,8 @@ def fig2(m, n):
     # point A1 will be at index 0, followed by m-1 cycle nodes, counterclockwise. 
     vertices.append(3*l+5)
 
-    # we create increasing edge weights [2l+6, ..., m+n] by alternatingly increasing and decreasing the vertex label 
+    # we create increasing edge weights [2l+6, ..., m+n] by alternatingly 
+    # increasing and decreasing the vertex label.
     # the last node constructed by this loop is the vertex with label 0
     startlength_counterclockwise = 2*l + 6 #3*l + 5 - (l - 1)
     decrease = True
@@ -55,7 +58,8 @@ def fig2(m, n):
 
     vertices.append(2*l + 4)
 
-    # we create increasing edge weights [2, ..., 2l+2] by alternatingly increasing and decreasing the vertex label
+    # we create increasing edge weights [2, ..., 2l+2] by alternatingly 
+    # increasing and decreasing the vertex label.
     # the last node constructed by this loop is the vertex with label l+2
     decrease = True
     for w in range(2, 2*l+3):
@@ -388,6 +392,9 @@ def fig5(m, n):
 
     return vertices, edges
 
+def fig6(m, n):
+    pass
+
 
 def thm2(m, n):
     assert(m % 4 == 1)
@@ -401,7 +408,7 @@ def thm2(m, n):
         elif n//2 >= (m-2)//4:
             return fig5(m, n)
         else:
-            return [0,1], [(0,1)]
+            return fig6(m, n)
 
 
 def is_graceful(vertices, edges):
@@ -449,7 +456,7 @@ for l in range(1, 20):
     for n in range(1, 20):
         m = 4*l + 1
         v, e = thm2(m, n)
-
+    
         print(f'V = {v}')
         print(f'E = {e}')
         if not is_graceful(v,e):
