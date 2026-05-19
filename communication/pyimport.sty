@@ -1,0 +1,49 @@
+%% pyimport.sty -- typeset a Python function verbatim from a source file
+%%
+%% REQUIREMENTS
+%%   * pdflatex / xelatex / lualatex run with -shell-escape
+%%   * Python 3 on PATH
+%%   * _pyimport_extract.py in the same directory as the .tex file
+%%
+%% USAGE
+%%   \usepackage{pyimport}
+%%
+%%   % Default style (frame + line numbers):
+%%   \pyfunction{mymodule.py}{my_function}
+%%
+%%   % Override fancyvrb options for one call:
+%%   \pyfunction[frame=lines,numbers=none,fontsize=\footnotesize]{mymodule.py}{fn}
+%%
+%%   % Change defaults for the whole document:
+%%   \pyimportsetup{frame=none, numbers=right, fontsize=\normalsize}
+%%
+%% The optional argument is passed verbatim to \VerbatimInput so any
+%% fancyvrb key=value pair is accepted.
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{pyimport}[2025/01/01 v1.1 Verbatim Python function importer]
+
+\RequirePackage{fancyvrb}
+
+%% Default fancyvrb options (user may override with \pyimportsetup)
+\newcommand{\pyimport@opts}{frame=single,numbers=left,fontsize=\small}
+
+\newcommand{\pyimportsetup}[1]{\renewcommand{\pyimport@opts}{#1}}
+
+%% Counter to generate unique temp-file names within one build
+\newcounter{pyimport@cnt}
+
+%% \pyfunction[fancyvrb-opts]{file.py}{function_name}
+\newcommand{\pyfunction}[3][]{%
+  \stepcounter{pyimport@cnt}%
+  \edef\pyimport@tmp{_pyimport_\arabic{pyimport@cnt}.tmp}%
+  %% call extractor; try python3 first, fall back to python
+  \immediate\write18{python3 _pyimport_extract.py "#2" "#3" "\pyimport@tmp" 2>\pyimport@tmp.err || python _pyimport_extract.py "#2" "#3" "\pyimport@tmp" 2>\pyimport@tmp.err}%
+  %% choose which option set to use
+  \def\pyimport@useropts{#1}%
+  \ifx\pyimport@useropts\@empty
+    \expandafter\VerbatimInput\expandafter[\pyimport@opts]{\pyimport@tmp}%
+  \else
+    \VerbatimInput[#1]{\pyimport@tmp}%
+  \fi
+}
